@@ -1,0 +1,17 @@
+---
+- name: Remove a group
+  hosts: cockpit
+  become: yes
+  tasks:
+    - name: Remove users from group
+      ansible.builtin.user:
+        name: "{{ item }}"
+        groups: ""
+        append: no
+      loop:
+        - testuser
+        - anotheruser
+    - name: Delete group
+      ansible.builtin.group:
+        name: testgroup
+        state: absent

@@ -1,0 +1,11 @@
+---
+- name: Manage user attributes
+  hosts: cockpit
+  become: yes
+  tasks:
+    - name: Update user attributes
+      ansible.builtin.user:
+        name: testuser
+        shell: /bin/zsh
+        comment: "Test User" #update GECOS - user information
+        expires: "{{ (ansible_date_time.epoch | int) + (30 * 24 * 60 * 60) }}" #expires date

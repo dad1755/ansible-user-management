@@ -1,0 +1,3 @@
+username,uid,home,shell,password
+user1,8002,/home/user1,/bin/bash,password1
+user2,8003,/home/user2,/bin/zsh,password2

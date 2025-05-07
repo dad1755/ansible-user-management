@@ -1,0 +1,10 @@
+---
+- name: Delete a user #this task name
+  hosts: cockpit #cockpit group refer to host.ini
+  become: yes #run this with sudo at targer host
+  tasks:
+    - name: Delete user and home directory #this task name
+      ansible.builtin.user: #FQCN - fully qualified action name to manage user
+        name: testuser #username
+        state: absent #absent refer to removes this user
+        remove: yes #this one refer to homedirectory

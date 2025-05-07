@@ -1,0 +1,12 @@
+---
+- name: Fetch logged-in users from a host
+  hosts: cockpit
+  become: yes
+  tasks:
+    - name: Run who command to get logged-in users
+      ansible.builtin.command: who
+      register: who_output
+
+    - name: Display logged-in users
+      ansible.builtin.debug:
+        msg: "{{ who_output.stdout_lines }}"

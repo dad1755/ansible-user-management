@@ -1,0 +1,21 @@
+---
+- name: Bulk user creation from CSV
+  hosts: cockpit
+  become: yes
+  tasks:
+    - name: Read users from CSV
+      ansible.builtin.read_csv:
+        path: "{{ playbook_dir }}/files/users.csv"
+      register: users
+      delegate_to: localhost
+      run_once: true
+    - name: Create users
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        uid: "{{ item.uid }}"
+        home: "{{ item.home }}"
+        shell: "{{ item.shell }}"
+        password: "{{ item.password | password_hash('sha512') }}"
+        state: present
+        create_home: yes
+      loop: "{{ users.list }}"

@@ -1,0 +1,13 @@
+---
+- name: Lock or unlock user accounts
+  hosts: cockpit
+  become: yes
+  tasks:
+    #- name: Lock user account
+    #  ansible.builtin.user:
+    #    name: testuser
+    #    password_lock: yes
+    - name: Unlock user account
+      ansible.builtin.user:
+        name: testuser
+        password_lock: no

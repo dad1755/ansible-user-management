@@ -1,0 +1,12 @@
+---
+- name: Add user to sudoers #task description
+  hosts: cockpit # refer to host.ini
+  become: yes #run this task with sudo
+  tasks:
+    - name: Grant passwordless sudo access #task description
+      ansible.builtin.lineinfile: #lineinfile add line into /etc/sudoers.d
+        path: /etc/sudoers.d/testuser # username
+        line: 'testuser ALL=(ALL) NOPASSWD: /usr/sbin/passwd' #insert this line to sudoers.d
+        create: yes #create
+        mode: '0440'
+        validate: 'visudo -cf %s' #validate it

@@ -1,0 +1,13 @@
+---
+- name: Create a new user #this task description
+  hosts: cockpit #cockpit group refer to host.ini
+  become: yes #run this task with sudo at target host
+  tasks:
+    - name: Create user with specific UID, home directory, and shell #this task description
+      ansible.builtin.user: #FQCN, fully qualified collection name for manage user
+        name: testuser #this task description
+        uid: 1001 #set user uuid
+        home: /home/testuser #set user home directory
+        shell: /bin/bash #set bash
+        state: present #set user
+        create_home: yes #create home directory
